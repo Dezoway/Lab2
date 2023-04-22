@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.security.Key;
@@ -21,9 +23,9 @@ public class MenuToolStrip {
         bar.add(edit);
         bar.add(help);
     }
-    public JMenuBar getBar(){
-        return bar;
-    }
+    public JMenuBar getBar(){return bar;}
+    public String getStyle(){return style;}
+    public Color getBrushColor(){return brushColor;}
     private void createFileSubMenu(JMenu file){
         JMenuItem newF = new JMenuItem("New");
         newF.setIcon(new ImageIcon(new ImageIcon("src/resources/NoteBook.png").getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT)));
@@ -45,7 +47,19 @@ public class MenuToolStrip {
     private void createEditSubMenu(JMenu edit){
         JMenuItem undo = new JMenuItem("Undo");
         undo.setIcon(new ImageIcon(new ImageIcon("src/resources/Undo.jpg").getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT)));
+        undo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((MainFrame)MainFrame.getFrames()[0]).undo();
+            }
+        });
         JMenuItem redo = new JMenuItem("Redo");
+        redo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((MainFrame)MainFrame.getFrames()[0]).redo();
+            }
+        });
         redo.setIcon(new ImageIcon(new ImageIcon("src/resources/Redo.png").getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT)));
         JMenu pen = new JMenu("Pen");
         pen.setIcon(new ImageIcon(new ImageIcon("src/resources/Pen.png").getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT)));
